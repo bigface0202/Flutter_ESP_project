@@ -133,14 +133,24 @@ class _JoyPadState extends State<JoyPad> {
     JoystickDirectionCallback onDirectionChanged(
         double degrees, double distance) {
       String data =
-          "Degree : ${degrees.toStringAsFixed(2)}, distance : ${distance.toStringAsFixed(2)}";
+          // "Degree : ${degrees.toStringAsFixed(2)}, distance : ${distance.toStringAsFixed(2)}";
+          "E${degrees.toStringAsFixed(2)}";
       print(data);
       writeData(data);
     }
 
     PadButtonPressedCallback padBUttonPressedCallback(
         int buttonIndex, Gestures gesture) {
-      String data = "buttonIndex : ${buttonIndex}";
+      String data = "${buttonIndex}";
+      if(data == '0'){
+        data = 'A';
+      }else if(data == '1'){
+        data = 'B';
+      }else if(data == '2'){
+        data = 'C';
+      }else if(data == '3'){
+        data = 'D';
+      }
       print(data);
       writeData(data);
     }

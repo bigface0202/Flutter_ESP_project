@@ -57,10 +57,20 @@ class MyCallbacks: public BLECharacteristicCallbacks {
     if(value.length() > 0){
 
       Serial.println("**********");
+      Serial.print("Initial: ");
+      Serial.println(value[0]);
+      M5.Lcd.fillScreen(BLACK);
+      M5.Lcd.setCursor(0, 0);
+      M5.Lcd.println(value[0]);
+
       Serial.print("New value: ");
-      
-      for(int i=0; i < value.length(); i++){
-        Serial.print(value[i]);
+      if(value[0] == 'E'){
+        M5.Lcd.setCursor(0, 0);
+        for(int i=1; i < value.length(); i++){
+          Serial.print(value[i]);
+          M5.Lcd.println(value[i]);
+          M5.Lcd.setCursor(i * 10, 0);
+        }
       }
 
       Serial.println();
@@ -73,7 +83,10 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 
 void setup() {
   Serial.begin(115200);
-
+  M5.begin();
+  M5.Lcd.setTextSize(2);
+  M5.Lcd.setRotation(3);
+  M5.Lcd.fillScreen(BLACK);
   // Create the BLE Device
   BLEDevice::init("ESP32 GET NOTI FROM DEVICE");
 
